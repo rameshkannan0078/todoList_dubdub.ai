@@ -1,0 +1,22 @@
+body {
+    background-color: #f2f2f2;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .my-5 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  .edit-form {
+    display: none;
+  }
+  
+
+  .strikethrough {
+    text-decoration: line-through;
+  }
+  

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" >
+  <script src="{{url_for('static', filename='javascript/script.js')}}"></script>
+  <title>To-Do List</title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center my-5">To-Do List</h1>
+    <form action = "{{ url_for('addrec') }}" method = "POST">
+        <div class="input-group mb-3">
+    
+            <input type="text" class="form-control" name="addTodo" placeholder="Add a new task" required>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+    </form>
+
+    {% for post in posts %}
+    <ul class="list-group">
+        <li class="list-group-item d-flex align-items-center">
+          <input type="checkbox"  class="mr-2"  onclick='toggleStrikethrough(this,"{{post[0]}}")' {{ "checked" if(post[2]) else "" }}>
+          <span class="todo-text" {{ "style=text-decoration:line-through" if(post[2]) else " " }} >{{ post[1] }}</span>
+         
+
+          <a href="/delete/{{ post[0] }}" class="btn btn-danger btn-sm ml-auto">
+            <i class="fas fa-trash-alt">
+            </i>
+        </a>
+      
+        <button class="btn btn-warning btn-sm ml-2 " onclick="toggleForm(this)">
+            <i class="fas fa-edit"></i>
+        </button>
+        
+        <form action="/update/{{ post[0] }}" method="POST" class="update-form d-none">
+            <input type="text" name="updateTodo" value="{{ post[1] }}" required>
+            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+        </form>
+        
+         
+        </li>
+      </ul>
+  
+ {% endfor %}
+
+
+
+</div>
+
+</body>
+</html>
